@@ -49,7 +49,11 @@ class ContactsController extends Controller
                         ]);
                     }
                     elseif ($request->has('id')) {
-                        (new Contact())->updateContact($request);
+                        $contact = (new Contact())->find($request->id);
+                        $contact->contact = $request->contact_table;
+                        $contact->phone = $request->phone_table;
+                        $contact->save();
+                        $add_edit = 'add';
                     }
                 }
                 else if ($request->has('find')) {
@@ -64,7 +68,7 @@ class ContactsController extends Controller
 
                 else if ($request->has('reset')) {
                     $add_edit = 'add';
-                    return redirect()->route('contact');
+                    return redirect()->route('post_contact');
                 }
 
             }
@@ -76,12 +80,12 @@ class ContactsController extends Controller
                 }
 
                 if ($request->action == 'edit'  & $add_edit == 'edit') {
-                    $contact = (new Contact())->getContact($request->id);
+                    $contact = (new Contact())->find($request->id);
                     $contact_table = $contact->contact;
                     $phone_table = $contact->phone;
                 }
                 elseif (($request->action == 'delete')) {
-                    (new Contact())->delContact($request->id);
+                    (new Contact())->find($request->id)->delete();
                 }
 
             }

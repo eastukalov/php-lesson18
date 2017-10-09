@@ -15,4 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::match(['GET', 'POST'],'/contacts', 'ContactsController@getContacts')->name('contact');
+Route::get('/contacts', 'ContactsController@getContacts')->name('get_contact');
+Route::post('/contacts', 'ContactsController@getContacts')->name('post_contact');

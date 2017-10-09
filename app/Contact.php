@@ -8,24 +8,6 @@ class Contact extends Model
 {
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    public function updateContact($request)
-    {
-        $contact = $this->find($request->id);
-        $contact->contact = $request->contact_table;
-        $contact->phone = $request->phone_table;
-        $contact->save();
-    }
-
-    public function getContact($id)
-    {
-        return $this->find($id);
-    }
-
-    public function delContact($id)
-    {
-        $this->find($id)->delete();
-    }
-
     public function getFind($request)
     {
         if ($request->has('contact_table') && $request->has('phone_table')) {
